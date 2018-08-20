@@ -4,6 +4,8 @@
 
 **Faster Than Light** is a python script that display dynamically the ping between your computer and a chosen server with Tkinter and matplotlib.
 
+![Screenshot of Faster Than Ping](https://github.com/Cynnexis/FasterThanPing/blob/master/screenshot.png)
+
 ## Getting Started ##
 
 ### Requirements ###
