@@ -2,13 +2,14 @@
 
 ![license: AGPL-3.0][badge-license] ![language: python][badge-language] ![subject: internet][badge-topic]
 
-**Faster Than Light** is a python script that display dynamically the ping between your computer and a chosen server with TKinter and matplotlib.
+**Faster Than Light** is a python script that display dynamically the ping between your computer and a chosen server with Tkinter and matplotlib.
 
 ## Getting Started ##
 
 ### Requirements ###
 
-* You must have **Python 3** installed on your computer.
+You must have:
+* **Python 3** installed on your computer.
 
 ### Installation ###
 
@@ -44,7 +45,8 @@ Under **Linux**/**MacOS**:
 
 ## Built with ##
 The library that I used for that project are:
-* [matplotlib](https://matplotlib.org/) - Python library which plots data
+* **[matplotlib](https://matplotlib.org/):** Python library which plots data
+* **[Tkinter](https://tkdocs.com/):** A GUI library for Python.
 
 Also used the following tools:
 * [JetBrains PyCharm Community](https://www.jetbrains.com/pycharm/) - Python IDE
@@ -54,6 +56,9 @@ Also used the following tools:
     * **[Text introduction](https://matplotlib.org/users/text_intro.html):** Tutorial to create text boxes in a *matplotlib* figure.
     * **[Possible to make labels appear when hovering over a point in matplotlib?](https://stackoverflow.com/questions/7908636/possible-to-make-labels-appear-when-hovering-over-a-point-in-matplotlib):** Stack Overflow forum about creating hover label in *matplotlib* figure.
     * **[Style sheets reference](https://matplotlib.org/gallery/style_sheets/style_sheets_reference.html):** List of all *matplotlib* styles
+    * **[matplotlib: Embedding in Tk](https://matplotlib.org/examples/user_interfaces/embedding_in_tk.html):** Embed *matplotlib* plot within *Tkinter*
+    * **[Embedding a matplotlib animation into a tkinter frame](https://stackoverflow.com/questions/21197728/embedding-a-matplotlib-animation-into-a-tkinter-frame):** Embed animated *matplotlib* plot within *Tkinter*
+    * **[Tkinter Widgets](https://www.tutorialspoint.com/python/tk_entry.htm):** List of all *Tkinter* widgets.
 
 ## Contributing ##
 No one yet.

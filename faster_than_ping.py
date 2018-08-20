@@ -6,9 +6,14 @@ import sys
 import time
 import platform
 import re
+import matplotlib
+matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 import datetime as dt
+import tkinter as tk
+import tkinter.ttk as ttk
 from enum import Enum
 from typing import Optional
 
@@ -73,10 +78,53 @@ def main(args: dict = None):
 	
 	pings = []
 	
+	root = tk.Tk()
+	root.configure(background='white')
+	root.wm_title("Faster Than Ping")
+	
+	style = ttk.Style()
+	style.configure("My.TFrame", background="white")
+	style.configure("My.TLabel", background="white")
+	style.configure("Title.TLabel", background="white", anchor="center", foreground="#3d8491")
+	style.configure("My.TEntry", background="white")
+	style.configure("My.TButton", background="white")
+	
+	mainframe = ttk.Frame(master=root, style="My.TFrame")
+	mainframe.pack(side=tk.TOP)
+	#mainframe.configure(background="white")
+	
+	lb_title = ttk.Label(master=mainframe, font=("arial", 20, "bold"), text="Faster Than Ping", style="Title.TLabel")
+	#lb_title.configure(background="white")
+	lb_title.pack(side=tk.TOP, fill=tk.X)
+	
+	url_frame = ttk.Frame(master=mainframe, style="My.TFrame")
+	#url_frame.configure(background="white")
+	url_frame.pack(side=tk.TOP)
+	
+	lb_url = ttk.Label(master=url_frame, text="URL: ", style="My.TLabel")
+	#lb_url.configure(background="white")
+	lb_url.pack(side=tk.LEFT)
+	
+	et_url = ttk.Entry(master=url_frame, style="My.TEntry")
+	#et_url.configure(background="white")
+	et_url.pack(side=tk.LEFT)
+	
+	def bt_ok_callback():
+		if et_url.get() is not None and len(et_url.get()) > 0:
+			args["url"] = et_url.get()
+	
+	bt_ok = ttk.Button(master=url_frame, text="Ok", command=bt_ok_callback, style="My.TButton")
+	#bt_ok.configure(background="white")
+	bt_ok.pack(side=tk.LEFT)
+	
+	lb_min_max = ttk.Label(master=mainframe, text="", style="My.TLabel")
+	#lb_min_max.configure(background="white")
+	lb_min_max.pack(side=tk.BOTTOM, fill=tk.X)
+	
 	plt.style.use('seaborn')
+	matplotlib.rcParams['toolbar'] = 'None'
 	fig = plt.figure()
 	ax = fig.add_subplot(1, 1, 1)
-	fig.suptitle("Faster Than Ping")
 	
 	def refresh(_):
 		url = args.get("url", "www.google.com")
@@ -96,17 +144,29 @@ def main(args: dict = None):
 		ax.set_xlabel("Pings")
 		ax.set_ylabel("Time (ms)")
 		ax.set_title(message)
+		ax.xaxis.set_ticks(range(min(x), max(x)+1))
 		ax.plot(x, y, color="#64dfe5", linestyle="solid", marker='o', label="Ping")
 		ax.set_ylim(ymin=0)
 		if len(y) > 0:
 			ax.set_ylim(ymax=max(y) + 10)
 		ax.legend()
-		ax.text(1, 1, "min = {0:4.2f} ms\nmax = {1:4.2f} ms".format(min(pings), max(pings)), transform=plt.gcf().transFigure)
+		min_max = "min = {0:4.2f} ms\tmax = {1:4.2f} ms".format(min(pings), max(pings))
+		lb_min_max["text"] = min_max
 	
-	ani = animation.FuncAnimation(fig, refresh, interval=1000)
+	canvas = FigureCanvasTkAgg(fig, master=mainframe)
+	canvas.show()
+	canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.X)
+
+	# noinspection PyUnusedLocal
+	ani = animation.FuncAnimation(fig, refresh, interval=1000, blit=False)
 	plt.legend()
-	plt.show()
-	pass
+	
+	def on_close():
+		root.destroy()
+		sys.exit(0)
+	
+	root.protocol("WM_DELETE_WINDOW", on_close)
+	root.mainloop()
 
 
 if __name__ == "__main__":

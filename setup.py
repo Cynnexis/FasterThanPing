@@ -31,7 +31,7 @@ setup(
 	project_urls={
 		"Source Code": "https://github.com/Cynnexis/FasterThanLight"
 	},
-	install_requires=["matplotlib==2.1.1"]
+	install_requires=["matplotlib==2.1.1", "tk"]
 	#data_files=None,
 	#entry_points=None
 )
